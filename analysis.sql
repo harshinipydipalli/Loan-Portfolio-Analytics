@@ -79,6 +79,40 @@ GROUP BY c.customer_id, c.name
 ORDER BY total_interest_expected DESC
 LIMIT 10;
 
+/* Net Interest Contribution=Interest Income (from loans)−Interest Expense (paid on deposits/borrowings)
+Interest Income → what the bank earns by lending money (loans, mortgages, credit).
+Interest Expense → what the bank pays out to customers on deposits (FD, savings accounts) or to other banks/markets if it borrows funds.
+So NIC tells us how much the bank actually keeps as profit after paying for the money it uses to lend.
+
+Why is NIC important?
+Profitability Lens :
+If you only look at interest income, you may think the bank is doing well.
+But if deposit interest (expense) is also high, the real gain could be much smaller.
+NIC reveals the true profitability of lending activities.
+
+Efficiency of Lending Strategy
+A rising NIC means the bank is:
+Charging higher lending rates (or)
+Lowering deposit/borrowing costs.
+Falling NIC could mean shrinking margins (e.g., competition forcing low loan rates, but still paying high deposit rates).
+
+Risk-Adjusted Return
+Even with high disbursement volumes, if NIC is thin, the bank may not have enough buffer against defaults.
+NIC helps balance growth vs safety.
+
+Investor & Regulator Focus
+Investors watch NIC/Net Interest Margin (NIM) to judge bank health.
+Regulators monitor it to ensure banks aren’t over-exposed by lending at too-thin margins.
+
+Example
+Loan disbursed: ₹1,000 Cr @ 10% → Interest Income = ₹100 Cr
+
+Deposits collected: ₹800 Cr @ 6% → Interest Expense = ₹48 Cr
+Borrowed funds: ₹200 Cr @ 7% → Interest Expense = ₹14 Cr (borrowsd funds are the one that bank is borrowed from RBI, other banks, etc)
+
+Net Interest Contribution = 100 – (48 + 14) = ₹38 Cr
+*/
+
 -- Default Rate by Region
 SELECT
     c.region,
