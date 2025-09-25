@@ -1,4 +1,4 @@
- /* 
+ /* Description: : Loan portfolio analysis
 Tables used are 
 loans - (loans_id, customer_id, loan_type, loan_amount, disbursement_date, interest_rate, tenure_months, status)
 Tracks loan details, amount, type, status (active, closed, defaulted).
@@ -113,7 +113,7 @@ Borrowed funds: ₹200 Cr @ 7% → Interest Expense = ₹14 Cr (borrowsd funds a
 Net Interest Contribution = 100 – (48 + 14) = ₹38 Cr
 */
 
--- Default Rate by Region
+-- Default Rate by Region (1- default , 0-good to give loan)
 SELECT
     c.region,
     COUNT(CASE WHEN l.status = 'defaulted' THEN 1 END) * 100.0 / COUNT(*) AS default_rate_pct
@@ -123,6 +123,10 @@ GROUP BY c.region
 ORDER BY default_rate_pct DESC;
 
 -- Risk Segment Analysis (Credit Score + Missed Payments)
+/* The goal is to identify which customers are high, medium, or low risk for loan default or repayment issues.
+Credit score → a standard metric for creditworthiness.
+Missed payments → a behavioral indicator (number of delayed payments).
+This combination gives a simple risk segmentation that a bank can use to focus monitoring or recovery efforts. */
 SELECT
     c.customer_id,
     c.name,
@@ -161,6 +165,26 @@ FROM loans l
 JOIN customers c ON c.customer_id = l.customer_id
 GROUP BY segment;
 
+/* Average Loan Size by Customer Segment = total loan amount given to a segment ÷ number of customers in that segment.
+Segments can be based on:
+Customer type: Retail, SME, Corporate
+Risk segment: High, Medium, Low
+Region/branch
+
+2️⃣ Why it’s important
+Portfolio Composition Insight
+Shows which segments are getting larger vs smaller loans.
+Example: Corporate loans may have huge average size, Retail smaller loans.
+Profitability & Risk Assessment
+Larger loans → higher potential interest income but higher risk exposure.
+Helps balance growth vs risk in the portfolio.
+Customer Strategy & Targeting
+If a segment has small average loans but low defaults → opportunity to upsell.
+If a segment has high average loans but higher defaults → risk mitigation needed.
+Trend Monitoring
+Can track average loan size over time by segment to detect changes in lending behavior or strategy shifts.
+Example: sudden spike in Retail loan size → may indicate aggressive lending policies.*/
+
 -- Early Warning Indicators (Increasing Payment Delays)
 SELECT
     l.loans_id,
@@ -181,6 +205,21 @@ SELECT
 FROM loans
 GROUP BY sector
 ORDER BY total_loans DESC;
+
+/*this is a very important metric in banking and lending, especially for investment and commercial loan portfolios
+Portfolio Concentration Risk measures how much your loans (or investments) are concentrated in one customer, industry, sector, or region.
+High concentration → risk of large losses if that customer/sector suffers a problem.
+Example: If 50% of loans are to the real estate sector, and real estate suffers a downturn, the bank faces big losses.
+
+Risk Diversification
+Diversifying loans across multiple industries reduces exposure to sector-specific downturns.
+
+Regulatory Compliance
+Banks often have limits on exposure to a single sector or counterparty (regulators don’t want a bank to fail because one industry collapses).
+
+Strategic Decisions
+Helps management decide where to allocate future lending.
+Example: If Retail is saturated, they may target SME or Corporate loans to balance risk.*/
 
 -- Fraud/Anomaly Detection (Multiple Loans in <7 Days)
 SELECT
