@@ -15,6 +15,7 @@ Each loan is linked to a branch.
 Qustion to be asked to dig deeeper
 
 Loan Portfolio Overview – Monthly disbursed loan amounts, outstanding balance.
+Interest Income Trend – Monthly growth in earned interest.
 Customer Profitability Ranking – Top 10 customers by net interest contribution.
 Default Rate by Region – % of loans defaulted across branches.
 Risk Segment Analysis – Categorize customers (Low/Medium/High risk) by credit score + missed payments.
@@ -23,12 +24,8 @@ Average Loan Size by Customer Segment – Compare retail vs SME vs corporate.
 Early Warning Indicators – Customers with increasing delays in repayments.
 Portfolio Concentration Risk – Industry/sector-wise loan distribution.
 Fraud/Anomaly Detection – Customers applying for multiple loans in <7 days.
-Interest Income Trend – Monthly growth in earned interest.
 Gender-wise Credit Performance – Compare male vs female default % and profitability.
-Delinquency Aging Report – Outstanding loans bucketed (30 days, 60 days, 90+ days overdue).
-Loan Repayment Patterns – Day-of-week repayment behavior.
-Rolling 3-Month NPA (Non-Performing Assets) Trend.
-High-Level Risk & Profitability Dashboard – Combine credit score trends, default %, customer profitability. */
+ */
 
 -- Monthly Loan Disbursements - Growth of loan book
 SELECT
@@ -232,5 +229,38 @@ GROUP BY customer_id
 HAVING DATE_PART('day', MAX(disbursement_date) - MIN(disbursement_date)) < 7
    AND COUNT(loans_id) > 1;
 
+-- Gender-wise Credit Performance
+SELECT
+    c.gender,
+    COUNT(l.loans_id) AS total_loans,
+    COUNT(CASE WHEN l.status = 'defaulted' THEN 1 END) AS defaults,
+    ROUND(COUNT(CASE WHEN l.status = 'defaulted' THEN 1 END) * 100.0 / COUNT(*), 2) AS default_rate_pct
+FROM customers c
+JOIN loans l ON c.customer_id = l.customer_id
+GROUP BY c.gender;
 
+/*It measures how male vs female customers perform in terms of:
+Loan repayment (on-time vs delayed)
+Defaults
+Average loan size or interest income contribution
 
+Essentially, it’s a segmentation of credit behavior by gender.
+
+Why it’s important
+Risk Assessment
+Some banks notice trends like:
+One gender segment may have lower default rates or better repayment discipline.
+This helps in targeting low-risk segments for lending.
+
+Product Design & Targeting
+Banks can create tailored loan products for specific segments.
+Example: Women-focused small business loans or microloans based on repayment trends.
+
+Regulatory & Social Responsibility
+Many regulators encourage banks to track financial inclusion metrics.
+Gender-wise analysis shows if loans are equitably distributed and if one segment is underserved.
+
+Marketing & Retention Strategy
+Helps in cross-selling or retention:
+If a segment is low-risk and profitable → offer premium products.
+If a segment shows repayment issues → design support programs or reminders.
