@@ -31,15 +31,18 @@ Gender-wise Credit Performance – Compare male vs female default % and profitab
 SELECT
     DATE_TRUNC('month', disbursement_date) AS month,
     SUM(loan_amount) AS total_disbursed,
-    COUNT(*) AS loans_issued
 FROM loans
 GROUP BY DATE_TRUNC('month', disbursement_date)
 ORDER BY month;
 
 -- Monthly Interest Income Trend - Profitability of loan book
 SELECT
-    DATE_TRUNC('month', disbursement_date) AS month,
-    SUM(loan_amount * interest_rate / 100) AS interest_income
+    DATE_TRUNC('month', disbursement_date) AS month, 
+    /*date_trunc Returns the first day of the month with timestamp (e.g., 2025-09-01 00:00:00).
+      Keeps year and month together, so you don’t risk merging across years.
+      Easier for plotting trends on a timeline.
+      whereas, month return only month number higher chances of merging */
+    ROUND(SUM(loan_amount * interest_rate / 100) AS interest_income,2)
 FROM loans
 WHERE status = 'active'
 GROUP BY DATE_TRUNC('month', disbursement_date)
