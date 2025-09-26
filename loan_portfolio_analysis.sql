@@ -42,7 +42,7 @@ SELECT
       Keeps year and month together, so you don’t risk merging across years.
       Easier for plotting trends on a timeline.
       whereas, month return only month number higher chances of merging */
-    ROUND(SUM(loan_amount * interest_rate / 100) AS interest_income,2)
+    ROUND(SUM(loan_amount * interest_rate / 100, 2) AS interest_income
 FROM loans
 WHERE status = 'active'
 GROUP BY DATE_TRUNC('month', disbursement_date)
