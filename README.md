@@ -19,3 +19,5 @@ Why important: Identifies high-value customers and helps in relationship managem
 Risk Segment Analysis
 What it shows: Categorizes customers as Low/Medium/High risk using credit score + missed payments.
 Why important: Directly ties to credit risk management and portfolio health
+
+These 5 give a balanced view of growth, profitability, and risk.
