@@ -71,17 +71,19 @@ Where do we allocate lending capital next?
 SELECT
     c.customer_id,
     c.name,
-    SUM(l.loan_amount * l.interest_rate / 100) AS total_interest_expected
+    round(SUM(l.loan_amount * l.interest_rate / 100) - sum(d.deposit_amount* d.interest_rate/100),2) as net_interest_contribution
 FROM loans l
-JOIN customers c ON c.customer_id = l.customer_id
-WHERE l.status = 'active'
+JOIN customers c ON c.customer_id = l.customer_id and l.status='closed' 
+JOIN deposits d ON d.customer_id = d.customer_id  and d.status='closed'
 GROUP BY c.customer_id, c.name
-ORDER BY total_interest_expected DESC
+ORDER BY net_interest_contribution DESC
 LIMIT 10;
 
-/* Net Interest Contribution=Interest Income (from loans)−Interest Expense (paid on deposits/borrowings)
+/* Net Interest Contribution = Interest Income (from loans) − Interest Expense (paid on deposits/borrowings)
 Interest Income → what the bank earns by lending money (loans, mortgages, credit).
 Interest Expense → what the bank pays out to customers on deposits (FD, savings accounts) or to other banks/markets if it borrows funds.
+It shows how much the bank earns purely from lending vs. borrowing activities (before other costs like salaries, rent, IT, etc.).
+It’s the core profit engine of a bank — how effectively it’s making money from loans after paying for funds.
 So NIC tells us how much the bank actually keeps as profit after paying for the money it uses to lend.
 
 Why is NIC important?
@@ -116,7 +118,7 @@ Net Interest Contribution = 100 – (48 + 14) = ₹38 Cr
 -- Default Rate by Region (1- default , 0-good to give loan)
 SELECT
     c.region,
-    COUNT(CASE WHEN l.status = 'defaulted' THEN 1 END) * 100.0 / COUNT(*) AS default_rate_pct
+    round(COUNT(CASE WHEN l.status = 'defaulted' THEN 1 END) / COUNT(*) * 100.0,2) AS default_rate_pct
 FROM loans l
 JOIN customers c ON c.customer_id = l.customer_id
 GROUP BY c.region
