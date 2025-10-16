@@ -17,17 +17,50 @@ Each loan is linked to a branch.
 
 Qustion to be asked to dig deeeper
 
-Loan Portfolio Overview – Monthly disbursed loan amounts, outstanding balance.
-Interest Income Trend – Monthly growth in earned interest.
-Customer Profitability Ranking – Top 10 customers by net interest contribution.
-Default Rate by Region – % of loans defaulted across branches.
-Risk Segment Analysis – Categorize customers (Low/Medium/High risk) by credit score + missed payments.
-Churn Detection – Customers with no repayments or activity in the last 6 months.
-Average Loan Size by Customer Segment – Compare retail vs SME vs corporate.
-Early Warning Indicators – Customers with increasing delays in repayments.
-Portfolio Concentration Risk – Industry/sector-wise loan distribution.
-Fraud/Anomaly Detection – Customers applying for multiple loans in <7 days.
-Gender-wise Credit Performance – Compare male vs female default % and profitability.
+1. Loan Portfolio Overview  
+   → Understand how much is disbursed monthly and how much remains unpaid.
+     Helps assess portfolio size and liquidity risk.
+
+2. Interest Income Trend  
+   → Track monthly growth or decline in earned interest.
+     Reveals profitability trends over time.
+
+3. Customer Profitability Ranking  
+   → Identify the most valuable customers based on net interest contribution.
+     Supports customer segmentation and retention strategy.
+
+4. Default Rate by Region  
+   → Analyze loan defaults by branch or region.
+     Pinpoints risky geographies and underperforming areas.
+
+5. Risk Segment Analysis  
+   → Categorize customers by credit score and missed payments.
+     Aids in credit decisioning and risk-based pricing.
+
+6. Churn Detection  
+   → Detect customers with no activity or repayments in the last 6 months.
+     Supports proactive retention actions.
+
+7. Average Loan Size by Segment  
+   → Compare average loan sizes across retail, SME, and corporate segments.
+     Helps with market segmentation and product planning.
+
+8. Early Warning Indicators  
+   → Identify customers showing delays or missed payments.
+     Enables proactive risk mitigation.
+
+9. Portfolio Concentration Risk  
+   → Measure exposure to specific industries/sectors.
+     Detects lack of diversification.
+
+10. Fraud/Anomaly Detection  
+    → Spot customers applying for multiple loans within short time spans.
+      Prevents loan stacking and fraud.
+
+11. Gender-wise Credit Performance  
+    → Compare default and repayment behavior across genders.
+      Supports fair lending and DEI reporting.
+
  */
 
 -- Monthly Loan Disbursements - Growth of loan book
