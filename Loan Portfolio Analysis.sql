@@ -1,4 +1,7 @@
  /* Description: : Loan portfolio analysis
+Problem Statement:
+To analyze how healthy is lending business, and which customers or segments are risky or profitable?
+
 Tables used are 
 loans - (loans_id, customer_id, loan_type, loan_amount, disbursement_date, interest_rate, tenure_months, status)
 Tracks loan details, amount, type, status (active, closed, defaulted).
@@ -268,4 +271,4 @@ Gender-wise analysis shows if loans are equitably distributed and if one segment
 Marketing & Retention Strategy
 Helps in cross-selling or retention:
 If a segment is low-risk and profitable → offer premium products.
-If a segment shows repayment issues → design support programs or reminders.
+If a segment shows repayment issues → design support programs or reminders.*/
