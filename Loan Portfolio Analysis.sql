@@ -15,10 +15,10 @@ Stores customer profile with income and credit_score (important for risk).
 Branches - (branch_id, region, branch_manager, total_assets)
 Each loan is linked to a branch.
 
-Qustion to be asked to dig deeeper
+Loans are considered asset to the bank, so questions to be asked to dig deeeper
 
 1. Loan Portfolio Overview  
-   → Understand how much is disbursed monthly and how much remains unpaid.
+   → Understand how much is disbursed/loan amount given out monthly and how much remains unpaid.
      Helps assess portfolio size and liquidity risk.
 
 2. Interest Income Trend  
